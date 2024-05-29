@@ -3,6 +3,7 @@
 # 
 local_examples/
 logs/
+training_logs/
 trash/
 kb-runs-gpt/
 ds_configs/
