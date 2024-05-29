@@ -20,7 +20,13 @@ from itertools import accumulate
 import numpy as np
 import torch
 
-from megatron import print_rank_0
+def print_rank_0(message):
+    """If distributed is initialized, print only on rank 0."""
+    if torch.distributed.is_initialized():
+        if torch.distributed.get_rank() == 0:
+            print(message, flush=True)
+    else:
+        print(message, flush=True)
 
 
 def best_fitting_dtype(vocab_size=None):
@@ -99,7 +105,7 @@ dtypes = {
     3: np.int16,
     4: np.int32,
     5: np.int64,
-    6: np.float,
+    6: float,
     7: np.double,
     8: np.uint16
 }
@@ -273,7 +279,7 @@ class IndexedDatasetBuilder(object):
         np.int16: 2,
         np.int32: 4,
         np.int64: 8,
-        np.float: 4,
+        float: 4,
         np.double: 8
     }
 
