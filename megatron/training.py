@@ -427,7 +427,7 @@ def setup_model_and_optimizer(model_provider_func):
             optimizer=optimizer,
             lr_scheduler=lr_scheduler,
             config=config,
-            args=args,
+            #args=args, don't give args two times
         )
 
         assert model.fp16_enabled() == args.fp16, "megatron fp16 config does not match deepspeed"
